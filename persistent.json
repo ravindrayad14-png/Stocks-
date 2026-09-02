@@ -1,0 +1,18 @@
+{
+  "symbol": "PERSISTENT.NS",
+  "name": "Persistent Systems Ltd",
+  "cap_segment": "mid",
+  "sector": "Information Technology",
+  "price": {"live": 5620.0, "day_open": 5480.0, "day_high": 5655.0, "day_low": 5465.0, "prev_close": 5410.5, "day_change_pct": 3.87, "volume": 1120000},
+  "range_52w": {"high": 6950.0, "low": 4120.0, "pct_from_high": -19.14, "position_pct": 53.03},
+  "technicals": {"rvol": 3.4, "price_vs_sma_pct": 4.8, "window_return_pct": 9.2, "swing_high": 5655.0, "swing_low": 5010.0, "day_range_position_pct": 81.6, "trend": "up"},
+  "analyst": {"consensus": "buy", "num_analysts": 22, "buy_pct": 77, "hold_pct": 18, "sell_pct": 5, "target_mean": 6180.0, "target_low": 5400.0, "target_high": 7100.0, "upside_pct": 9.96},
+  "news": {"total": 3, "positive": 2, "negative": 0, "neutral": 1, "recent": [
+    {"title": "Persistent Systems wins strong deal pipeline in digital", "tone": "positive"},
+    {"title": "Persistent stock surges on record quarterly bookings", "tone": "positive"},
+    {"title": "Persistent Systems opens new delivery center", "tone": "neutral"}
+  ]},
+  "data_gaps": [],
+  "note": "Feed has no raw fundamental ratios (P/E, ROE, etc.) — not available in this bundle.",
+  "as_of": "2026-08-28 10:15:00 IST"
+}

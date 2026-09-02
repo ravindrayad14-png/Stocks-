@@ -1,0 +1,18 @@
+{
+  "symbol": "TANLA.NS",
+  "name": "Tanla Platforms Ltd",
+  "cap_segment": "small",
+  "sector": "Information Technology",
+  "price": {"live": 685.2, "day_open": 712.0, "day_high": 715.5, "day_low": 680.1, "prev_close": 718.4, "day_change_pct": -4.62, "volume": 2650000},
+  "range_52w": {"high": 1290.0, "low": 630.0, "pct_from_high": -46.88, "position_pct": 8.36},
+  "technicals": {"rvol": 2.1, "price_vs_sma_pct": -9.3, "window_return_pct": -12.4, "swing_high": 820.0, "swing_low": 680.1, "day_range_position_pct": 14.4, "trend": "down"},
+  "analyst": {"consensus": "hold", "num_analysts": 9, "buy_pct": 44, "hold_pct": 33, "sell_pct": 23, "target_mean": 780.0, "target_low": 600.0, "target_high": 980.0, "upside_pct": 13.85},
+  "news": {"total": 3, "positive": 0, "negative": 2, "neutral": 1, "recent": [
+    {"title": "Tanla Platforms stock falls on client concentration concerns", "tone": "negative"},
+    {"title": "Analysts flag competitive pressure in CPaaS business", "tone": "negative"},
+    {"title": "Tanla to present at investor conference next week", "tone": "neutral"}
+  ]},
+  "data_gaps": [],
+  "note": "Feed has no raw fundamental ratios (P/E, ROE, etc.) — not available in this bundle.",
+  "as_of": "2026-08-28 10:15:00 IST"
+}

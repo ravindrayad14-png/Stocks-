@@ -1,0 +1,19 @@
+{
+  "symbol": "TCS.NS",
+  "name": "Tata Consultancy Services Ltd",
+  "cap_segment": "large",
+  "sector": "Information Technology",
+  "price": {"live": 3812.6, "day_open": 3845.0, "day_high": 3851.0, "day_low": 3798.2, "prev_close": 3849.9, "day_change_pct": -0.97, "volume": 2210000},
+  "range_52w": {"high": 4592.3, "low": 3555.0, "pct_from_high": -17.0, "position_pct": 24.83},
+  "technicals": {"rvol": 0.8, "price_vs_sma_pct": -2.4, "window_return_pct": -3.1, "swing_high": 3990.0, "swing_low": 3760.5, "day_range_position_pct": 25.9, "trend": "down"},
+  "analyst": {"consensus": "hold", "num_analysts": 41, "buy_pct": 46, "hold_pct": 38, "sell_pct": 16, "target_mean": 3900.0, "target_low": 3400.0, "target_high": 4500.0, "upside_pct": 2.3},
+  "news": {"total": 4, "positive": 0, "negative": 2, "neutral": 2, "recent": [
+    {"title": "TCS margins miss estimates amid client budget cuts", "tone": "negative"},
+    {"title": "IT sector faces demand slowdown in North America", "tone": "negative"},
+    {"title": "TCS wins large deal with European bank", "tone": "neutral"},
+    {"title": "TCS board to meet on buyback proposal", "tone": "neutral"}
+  ]},
+  "data_gaps": [],
+  "note": "Feed has no raw fundamental ratios (P/E, ROE, etc.) — not available in this bundle.",
+  "as_of": "2026-08-28 10:15:00 IST"
+}

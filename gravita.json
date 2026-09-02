@@ -1,0 +1,18 @@
+{
+  "symbol": "GRAVITA.NS",
+  "name": "Gravita India Ltd",
+  "cap_segment": "small",
+  "sector": "Materials",
+  "price": {"live": 1985.0, "day_open": 1912.0, "day_high": 2005.0, "day_low": 1908.5, "prev_close": 1890.2, "day_change_pct": 5.02, "volume": 890000},
+  "range_52w": {"high": 2110.0, "low": 1240.0, "pct_from_high": -5.92, "position_pct": 85.65},
+  "technicals": {"rvol": 4.2, "price_vs_sma_pct": 7.6, "window_return_pct": 14.8, "swing_high": 2005.0, "swing_low": 1740.0, "day_range_position_pct": 79.4, "trend": "up"},
+  "analyst": {"consensus": "buy", "num_analysts": 11, "buy_pct": 86, "hold_pct": 9, "sell_pct": 5, "target_mean": 2260.0, "target_low": 2000.0, "target_high": 2500.0, "upside_pct": 13.85},
+  "news": {"total": 3, "positive": 2, "negative": 0, "neutral": 1, "recent": [
+    {"title": "Gravita India shares surge on strong export growth", "tone": "positive"},
+    {"title": "Gravita expands recycling capacity in new plant", "tone": "positive"},
+    {"title": "Gravita India schedules quarterly results date", "tone": "neutral"}
+  ]},
+  "data_gaps": [],
+  "note": "Feed has no raw fundamental ratios (P/E, ROE, etc.) — not available in this bundle.",
+  "as_of": "2026-08-28 10:15:00 IST"
+}

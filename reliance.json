@@ -1,0 +1,20 @@
+{
+  "symbol": "RELIANCE.NS",
+  "name": "Reliance Industries Ltd",
+  "cap_segment": "large",
+  "sector": "Energy",
+  "price": {"live": 2985.4, "day_open": 2951.0, "day_high": 2998.2, "day_low": 2946.5, "prev_close": 2942.1, "day_change_pct": 1.47, "volume": 8423000},
+  "range_52w": {"high": 3217.9, "low": 2220.3, "pct_from_high": -7.22, "position_pct": 76.68},
+  "technicals": {"rvol": 1.9, "price_vs_sma_pct": 3.1, "window_return_pct": 6.4, "swing_high": 2998.2, "swing_low": 2790.0, "day_range_position_pct": 74.9, "trend": "up"},
+  "analyst": {"consensus": "buy", "num_analysts": 38, "buy_pct": 82, "hold_pct": 14, "sell_pct": 4, "target_mean": 3260.0, "target_low": 2900.0, "target_high": 3600.0, "upside_pct": 9.2},
+  "news": {"total": 5, "positive": 3, "negative": 0, "neutral": 2, "recent": [
+    {"title": "Reliance Q1 profit beats estimates on retail growth", "tone": "positive"},
+    {"title": "Reliance Jio adds record subscribers this quarter", "tone": "positive"},
+    {"title": "Brokerage upgrades Reliance target on energy margins", "tone": "positive"},
+    {"title": "Reliance announces new green energy investment plan", "tone": "neutral"},
+    {"title": "Reliance AGM scheduled for next month", "tone": "neutral"}
+  ]},
+  "data_gaps": [],
+  "note": "Feed has no raw fundamental ratios (P/E, ROE, etc.) — not available in this bundle.",
+  "as_of": "2026-08-28 10:15:00 IST"
+}
