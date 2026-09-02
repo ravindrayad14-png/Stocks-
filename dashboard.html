@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentDesk — Indian stock analysis</title>
+<style>
+  :root{
+    --bg:#F6F7F9;
+    --card:#FFFFFF;
+    --border:#E3E7ED;
+    --text:#111827;
+    --text-dim:#6B7280;
+    --text-faint:#9CA3AF;
+    --navy:#233868;
+    --navy-dim:#3E5384;
+    --green:#0F7A4E;
+    --green-bg:#E9F7EF;
+    --amber:#A5590A;
+    --amber-bg:#FDF3E5;
+    --red:#B42318;
+    --red-bg:#FCEBEA;
+    --radius:12px;
+    --shadow:0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 24px 60px;}
+
+  header.top{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:28px; flex-wrap:wrap; gap:14px;
+  }
+  .brandblock{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .brandblock h1{font-size:22px; font-weight:650; margin:0; letter-spacing:-0.01em;}
+  .brandblock .tagline{color:var(--text-dim); font-size:14px;}
+
+  .mode-row{display:flex; align-items:center; gap:10px;}
+  select#modeSelect{
+    border:1px solid var(--border); border-radius:8px; padding:9px 12px;
+    background:var(--card); font-size:14px; color:var(--text); cursor:pointer;
+  }
+  button#startBtn{
+    background:var(--navy); color:#fff; border:none; border-radius:8px;
+    padding:10px 20px; font-size:14px; font-weight:600; cursor:pointer;
+    box-shadow:var(--shadow); transition:background .15s ease;
+  }
+  button#startBtn:hover{background:var(--navy-dim);}
+  button#startBtn:disabled{background:#B6BECF; cursor:not-allowed;}
+
+  .kpi-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px;}
+  .kpi-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px 18px; box-shadow:var(--shadow);
+  }
+  .kpi-card .label{font-size:12.5px; color:var(--text-dim); margin-bottom:6px;}
+  .kpi-card .value{font-size:26px; font-weight:650; letter-spacing:-0.01em;}
+  .kpi-card .value.small{font-size:19px;}
+
+  section.agents{margin-bottom:30px;}
+  h2.section-title{font-size:14px; font-weight:650; color:var(--text-dim); margin:0 0 12px 2px; text-transform:none;}
+  .agent-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;}
+  .agent-card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px;
+    transition:border-color .2s ease;
+  }
+  .agent-card.working{border-color:#B9C4DE;}
+  .agent-card.done{border-color:#BFE2CE;}
+  .agent-top{display:flex; align-items:flex-start; justify-content:space-between; gap:8px;}
+  .agent-id{display:flex; align-items:center; gap:10px;}
+  .agent-icon{
+    width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center;
+    font-size:17px; background:#EEF1F7; flex:none;
+  }
+  .agent-name{font-size:14.5px; font-weight:650;}
+  .agent-role{font-size:12px; color:var(--text-dim); line-height:1.35;}
+  .status-pill{
+    display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+    padding:3px 9px; border-radius:100px; white-space:nowrap;
+  }
+  .status-pill.offline{background:#F1F2F4; color:var(--text-faint);}
+  .status-pill.working{background:#EAF0FE; color:var(--navy);}
+  .status-pill.done{background:var(--green-bg); color:var(--green);}
+  .dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+  .status-pill.working .dot{animation:pulse 1s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+  .agent-stats{display:flex; gap:18px; margin-top:2px; border-top:1px solid var(--border); padding-top:10px;}
+  .stat{display:flex; flex-direction:column; gap:2px;}
+  .stat .num{font-size:16px; font-weight:650;}
+  .stat .lbl{font-size:11px; color:var(--text-faint);}
+
+  section.feed{}
+  .feed-empty{
+    background:var(--card); border:1px dashed var(--border); border-radius:var(--radius);
+    padding:36px; text-align:center; color:var(--text-dim); font-size:13.5px;
+  }
+  .verdict-row{
+    display:grid; grid-template-columns:120px 84px 1fr 130px; align-items:center; gap:16px;
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:14px 18px; margin-bottom:10px; box-shadow:var(--shadow);
+  }
+  .verdict-symbol{font-weight:650; font-size:14.5px;}
+  .verdict-symbol .seg{display:block; font-size:11px; font-weight:500; color:var(--text-faint); margin-top:1px;}
+  .badge{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    font-size:12px; font-weight:700; padding:5px 0; border-radius:8px; width:100%;
+  }
+  .badge.BUY{background:var(--green-bg); color:var(--green);}
+  .badge.WATCH{background:var(--amber-bg); color:var(--amber);}
+  .badge.AVOID{background:var(--red-bg); color:var(--red);}
+  .badge .conf{font-weight:600; opacity:.85;}
+  .verdict-why{font-size:13px; color:var(--text); line-height:1.4;}
+  .verdict-why .catalyst{display:block; font-size:11.5px; color:var(--text-dim); margin-top:3px;}
+  .verdict-price{text-align:right;}
+  .verdict-price .p{font-size:14.5px; font-weight:650;}
+  .verdict-price .chg{font-size:12px; font-weight:600; margin-top:2px;}
+  .chg.up{color:var(--green);}
+  .chg.down{color:var(--red);}
+  .chg.flat{color:var(--text-faint);}
+
+  footer{
+    margin-top:36px; padding-top:18px; border-top:1px solid var(--border);
+    font-size:12.5px; color:var(--text-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  .error-banner{
+    background:var(--red-bg); color:var(--red); border:1px solid #F3C9C5; border-radius:var(--radius);
+    padding:12px 16px; font-size:13px; margin-bottom:20px;
+  }
+
+  @media (max-width: 900px){
+    .kpi-row{grid-template-columns:repeat(2,1fr);}
+    .agent-grid{grid-template-columns:repeat(2,1fr);}
+    .verdict-row{grid-template-columns:1fr; text-align:left;}
+    .verdict-price{text-align:left;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brandblock">
+      <h1 id="brandName">AgentDesk</h1>
+      <span class="tagline" id="tagline">Indian stock analysis · 8 agents on duty</span>
+    </div>
+    <div class="mode-row">
+      <select id="modeSelect">
+        <option value="demo">Demo (offline)</option>
+        <option value="live">Live (NSE hours)</option>
+      </select>
+      <button id="startBtn">Start agents</button>
+    </div>
+  </header>
+
+  <div id="errorBanner" class="error-banner" style="display:none;"></div>
+
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="label">Universe</div><div class="value" id="kpiUniverse">0</div></div>
+    <div class="kpi-card"><div class="label">In debate</div><div class="value" id="kpiDebate">0</div></div>
+    <div class="kpi-card"><div class="label">Buy signals</div><div class="value" id="kpiBuy">0</div></div>
+    <div class="kpi-card"><div class="label">Top pick</div><div class="value small" id="kpiTop">—</div></div>
+  </div>
+
+  <section class="agents">
+    <h2 class="section-title">Agents</h2>
+    <div class="agent-grid" id="agentGrid"></div>
+  </section>
+
+  <section class="feed">
+    <h2 class="section-title">Latest verdicts</h2>
+    <div id="feedContainer">
+      <div class="feed-empty">No verdicts yet — click Start agents.</div>
+    </div>
+  </section>
+
+  <footer>
+    <span id="footerLeft">Built from 0 real stocks · data pulled — · engine: —</span>
+    <span>Analysis only. No trades are placed. Not investment advice.</span>
+  </footer>
+
+</div>
+
+<script>
+const AGENT_ICONS = {
+  scout: "🔭", technician: "📈", fundamentalist: "📊", newsdesk: "📰",
+  bull: "🐂", bear: "🐻", judge: "⚖️", messenger: "✉️"
+};
+const AGENT_ORDER = ["scout","technician","fundamentalist","newsdesk","bull","bear","judge","messenger"];
+
+let started = false;
+let agentGridBuilt = false;
+
+function el(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+function buildAgentGrid(meta){
+  const grid = document.getElementById("agentGrid");
+  grid.innerHTML = "";
+  AGENT_ORDER.forEach(id => {
+    const m = meta[id];
+    const card = el("div", "agent-card offline");
+    card.id = "agent-" + id;
+    card.innerHTML = `
+      <div class="agent-top">
+        <div class="agent-id">
+          <div class="agent-icon">${AGENT_ICONS[id] || "•"}</div>
+          <div>
+            <div class="agent-name">${m.name}</div>
+          </div>
+        </div>
+        <span class="status-pill offline" id="pill-${id}"><span class="dot"></span>offline</span>
+      </div>
+      <div class="agent-role">${m.role}</div>
+      <div class="agent-stats">
+        <div class="stat"><span class="num" id="stat1-${id}">0</span><span class="lbl">${m.stat1_label}</span></div>
+        <div class="stat"><span class="num" id="stat2-${id}">—</span><span class="lbl">${m.stat2_label}</span></div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+  agentGridBuilt = true;
+}
+
+function updateAgents(agents){
+  AGENT_ORDER.forEach(id => {
+    const a = agents[id];
+    if(!a) return;
+    const card = document.getElementById("agent-" + id);
+    const pill = document.getElementById("pill-" + id);
+    if(!card || !pill) return;
+    card.classList.remove("offline","working","done");
+    card.classList.add(a.status);
+    pill.classList.remove("offline","working","done");
+    pill.classList.add(a.status);
+    pill.innerHTML = `<span class="dot"></span>${a.status}`;
+    document.getElementById("stat1-" + id).textContent = a.stat1;
+    document.getElementById("stat2-" + id).textContent = a.stat2;
+  });
+}
+
+function fmtChange(pct){
+  if(pct === null || pct === undefined) return {cls:"flat", text:"—"};
+  const cls = pct > 0 ? "up" : (pct < 0 ? "down" : "flat");
+  const sign = pct > 0 ? "+" : "";
+  return {cls, text: `${sign}${pct}%`};
+}
+
+function renderFeed(verdicts){
+  const container = document.getElementById("feedContainer");
+  if(!verdicts.length){
+    container.innerHTML = '<div class="feed-empty">No verdicts yet — click Start agents.</div>';
+    return;
+  }
+  container.innerHTML = "";
+  verdicts.forEach(v => {
+    const chg = fmtChange(v.day_change_pct);
+    const price = (v.live_price === null || v.live_price === undefined) ? "—" : `₹${v.live_price}`;
+    const row = el("div", "verdict-row");
+    row.innerHTML = `
+      <div class="verdict-symbol">${v.symbol.replace('.NS','')}<span class="seg">${v.cap_segment} cap</span></div>
+      <div class="badge ${v.verdict}">${v.verdict}<span class="conf">${v.confidence}/10</span></div>
+      <div class="verdict-why">${v.why || ""}<span class="catalyst">${v.key_catalyst || ""}</span></div>
+      <div class="verdict-price"><div class="p">${price}</div><div class="chg ${chg.cls}">${chg.text}</div></div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+async function poll(){
+  try{
+    const res = await fetch("/status");
+    const s = await res.json();
+
+    if(!agentGridBuilt){
+      buildAgentGrid(s.agent_meta);
+    }
+    document.getElementById("brandName").textContent = s.brand || "AgentDesk";
+    document.getElementById("tagline").textContent = `Indian stock analysis · ${AGENT_ORDER.length} agents on duty`;
+
+    updateAgents(s.agents);
+
+    document.getElementById("kpiUniverse").textContent = s.kpi.universe ?? 0;
+    document.getElementById("kpiDebate").textContent = s.kpi.in_debate ?? 0;
+    document.getElementById("kpiBuy").textContent = s.kpi.buy_signals ?? 0;
+    document.getElementById("kpiTop").textContent = s.kpi.top_pick || "—";
+
+    renderFeed(s.verdicts || []);
+
+    const errBanner = document.getElementById("errorBanner");
+    if(s.error){
+      errBanner.style.display = "block";
+      errBanner.textContent = "Run stopped early: " + s.error;
+    } else {
+      errBanner.style.display = "none";
+    }
+
+    const footerLeft = document.getElementById("footerLeft");
+    footerLeft.textContent = `Built from ${s.kpi.in_debate || 0} real stocks · data pulled ${s.data_pulled_at || "—"} · engine: ${s.engine || "—"}`;
+
+    const startBtn = document.getElementById("startBtn");
+    if(s.status === "running"){
+      startBtn.disabled = true;
+      startBtn.textContent = "Running…";
+    } else {
+      startBtn.disabled = false;
+      startBtn.textContent = "Start agents";
+    }
+  }catch(e){
+    // keep polling silently — transient network hiccups shouldn't break the UI
+  }
+}
+
+document.getElementById("startBtn").addEventListener("click", async () => {
+  const mode = document.getElementById("modeSelect").value;
+  const btn = document.getElementById("startBtn");
+  btn.disabled = true;
+  btn.textContent = "Running…";
+  await fetch("/start", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({mode})
+  });
+});
+
+poll();
+setInterval(poll, 500);
+</script>
+</body>
+</html>
